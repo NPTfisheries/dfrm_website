@@ -1,0 +1,6 @@
+[submodule "dfrm_be"]
+	path = dfrm_be
+	url = https://github.com/NPTfisheries/dfrm_be
+[submodule "dfrm_fe"]
+	path = dfrm_fe
+	url = https://github.com/NPTfisheries/dfrm_fe
