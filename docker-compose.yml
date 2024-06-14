@@ -1,0 +1,47 @@
+services: 
+
+    # POSTGRES DATABASE
+    db:
+      container_name: postgres
+      image: postgis/postgis
+      environment:
+        # - POSTGRES_DB=${POSTGRES_DB}  # optional - if not provided a db w/ username is built (postgres).
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      ports:
+      #  - "${HOST_PORT}:${CONTAINER_PORT}"
+        - "5432:5432"
+      volumes:
+        - pgdata:/var/lib/postgresql/data   # host:container
+        - ./pgdata:/docker-entrypoint-initdb.d  # THIS LINE!!!
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -D ${POSTGRES_DB} -U ${POSTGRES_USER}"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+      restart: always
+    
+    # DJANGO
+    backend:
+      build:
+        context: ./dfrm_be
+      container_name: dfrm_be
+      ports:
+        - "9000:9000"
+      depends_on:
+        - db
+    
+    # ANGULAR
+    frontend:
+      build:
+        context: ./dfrm_fe
+      container_name: dfrm_fe
+      ports:
+        - 4200:4200
+      volumes:
+        - dfrm_fe:/dfrm_fe
+        - /dfrm_fe/node_modules
+
+volumes:
+  pgdata:
+  dfrm_fe:
