@@ -5,7 +5,7 @@ services:
       container_name: postgres
       image: postgis/postgis
       environment:
-        # - POSTGRES_DB=${POSTGRES_DB}  # optional - if not provided a db w/ username is built (postgres).
+        - POSTGRES_DB=${POSTGRES_DB}  # initial database name
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       ports:
