@@ -39,8 +39,8 @@ services:
       ports:
         - 4200:4200
       volumes:
-        - dfrm_fe:/dfrm_fe
-        - /dfrm_fe/node_modules
+        - ./dfrm_fe:/app
+        - /app/node_modules
 
 volumes:
   pgdata:
