@@ -14,7 +14,7 @@ The website is built in a multi-container Dockerized application with an Angular
 
     -   Place the first .env file in the root directory (i.e., dfrm_website folder). It must contain the following three lines that will initialize a PostgreSQL database in a container.
         -   POSTGRES_DB=<database_name>
-        -   POSTGRES_USER=<username>
+        -   POSTGRES_USER=<username>  
         -   POSTGRES_PASSWORD=<password>
     -   The second .env file is placed in the ./dfrm_be/website/ directory. It must contain the following lines.
         -   SECRET_KEY=<secret_key>
