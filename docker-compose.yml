@@ -38,7 +38,7 @@ services:
       ports:
         - 4200:4200
       volumes:
-        - ./dfrm_fe:/app
+        - ./dfrm_fe:/app   # Bind Mount - associates a folder with container. Code changes will be immediately reflected - Development.
         - node:/app/node_modules
 
 volumes:
