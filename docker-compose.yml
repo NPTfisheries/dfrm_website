@@ -39,8 +39,8 @@ services:
         - 4200:4200
       volumes:
         - ./dfrm_fe:/app
-        - /app/node_modules
+        - node:/app/node_modules
 
 volumes:
   pgdata:
-  dfrm_fe:
+  node:
