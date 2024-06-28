@@ -24,7 +24,7 @@ The website is built in a multi-container Dockerized application with an Angular
         -   DATABASE_USER=<username>
         -   DATABASE_PORT=<port>
         -   DATABASE_PASS_DEV=<password>
-        -   DATABASE_HOST_DEV=db
+        -   DATABASE_HOST_DEV=<host>
         -   GDAL_LIBRARY_PATH=<gdal_file_path>
         -   GEOS_LIBRARY_PATH=<geos_file_path>
 
