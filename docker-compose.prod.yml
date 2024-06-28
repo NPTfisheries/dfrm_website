@@ -1,0 +1,27 @@
+services:
+  
+  # DJANGO - GUNICORN
+  dfrm_be:
+    build:
+      context: ./dfrm_be
+      dockerfile: Dockerfile.prod
+    container_name: dfrm_be
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
+    expose:
+      - "8000"
+
+  # NGINX REVERSE PROXY
+  nginx_proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx_proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - dfrm_be
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
