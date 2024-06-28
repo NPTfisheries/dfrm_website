@@ -1,7 +1,7 @@
 services:
   
   # DJANGO - GUNICORN
-  dfrm_be:
+  backend:
     build:
       context: ./dfrm_be
       dockerfile: Dockerfile.prod
@@ -21,7 +21,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - dfrm_be
+      - backend
     volumes:
       - ./static:/app/static
       - ./media:/app/media
