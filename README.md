@@ -19,11 +19,12 @@ The website is built in a multi-container Dockerized application with an Angular
     -   The second .env file is placed in the ./dfrm_be/website/ directory. It must contain the following lines.
         -   SECRET_KEY=<secret_key>
         -   DEBUG=True
+        -   MODE = Dev
         -   DATABASE_NAME=<database_name>
         -   DATABASE_USER=<username>
-        -   DATABASE_PASS=<password>
         -   DATABASE_PORT=<port>
-        -   DATABASE_HOST=db
+        -   DATABASE_PASS_DEV=<password>
+        -   DATABASE_HOST_DEV=db
         -   GDAL_LIBRARY_PATH=<gdal_file_path>
         -   GEOS_LIBRARY_PATH=<geos_file_path>
 
