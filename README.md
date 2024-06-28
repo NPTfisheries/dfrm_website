@@ -28,6 +28,7 @@ The website is built in a multi-container Dockerized application with an Angular
         -   GEOS_LIBRARY_PATH=<geos_file_path>
 
 5.  Open the terminal and run: \> docker compose up --build -d
+    (In prod you must reference the correct compose.yml file: docker compose -f docker-compose.prod.yml up --build -d)
 
     1.  The application should now be up and running. Note: you will need to have Docker Desktop running.
     2.  Client/frontend access: localhost:4200
@@ -45,3 +46,4 @@ The website is built in a multi-container Dockerized application with an Angular
         2.  Use Ctrl+D to navigate out of psql/bash and back to the root directory in the terminal.
 
 7.  Shut down the containers with: \> docker compose down
+    (In prod you must reference the correct compose.yml file: docker compose -f docker-compose.prod.yml down)
