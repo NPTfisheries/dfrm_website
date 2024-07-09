@@ -1,3 +1,4 @@
+##version: '3.8'
 services:
   
   # DJANGO - GUNICORN
@@ -25,3 +26,10 @@ services:
     volumes:
       - ./static:/app/static
       - ./media:/app/media
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Map the local Nginx config to the container
+#     networks:
+#       - dfrm_network # connect to a custom Docker network for isolation and communication
+
+# networks:
+#   dfrm_network:
+#     driver: bridge # use the default bridge network driver
