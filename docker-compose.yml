@@ -28,7 +28,7 @@ services:
       ports:
         - "8000:8000"
       volumes:
-        - ./dfrm_be:/backend  # Bind mount for hot reload // should match Dockerfile WORKDIR
+        - ./dfrm_be:/backend # Bind mount for hot reload // should match Dockerfile WORKDIR
       depends_on:
         - db
     
