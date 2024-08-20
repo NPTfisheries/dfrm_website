@@ -7,9 +7,12 @@ COPY 500.html /etc/nginx/500.html
 # install certbot and set up cron job for auto-renewal
 RUN apk update && \
     apk add certbot certbot-nginx openssl && \
-    echo "0 0,12 * * * certbot renew --nginx" > /etc/crontabs/root && \
-    crontab /etc/crontabs/root
+    echo "0 0,12 * * * certbot renew --nginx" > /etc/crontabs/root 
+
+# copy script that runs both crond and nginx
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
 EXPOSE 80
 
-CMD ["crond", "-f", "&", "nginx", "-g", "daemon off;"]
+CMD ["/start.sh"]
