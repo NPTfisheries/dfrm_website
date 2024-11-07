@@ -41,7 +41,7 @@ services:
         - 4200:4200
       volumes:
         - ./dfrm_fe:/app   # Bind Mount - associates a folder with container. Code changes will be immediately reflected - Development.
-        - node:/app/node_modules
+        # - node:/app/node_modules   # this appears unnecessary? 10/22/24 TS
 
 volumes:
   pgdata:
