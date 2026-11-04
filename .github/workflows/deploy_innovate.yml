@@ -24,10 +24,11 @@ jobs:
         run: |
           echo "De-registering submodules..."
           # Find all submodule paths and remove their tracking files
-          git submodule foreach --recursive '
-            echo "Flattening submodule at $displaypath"
-            rm -rf .git .gitattributes .gitignore
-          '
+          git submodule foreach --quiet --recursive 'printf "%s\0" "$displaypath"' > "$RUNNER_TEMP/submodule-paths"
+          while IFS= read -r -d '' path; do
+            echo "Flattening submodule at $path"
+            rm -rf -- "$path/.git" "$path/.gitattributes" "$path/.gitignore"
+          done < "$RUNNER_TEMP/submodule-paths"
           
           echo "Removing submodule metadata from the parent repository..."
           rm -f .gitmodules
