@@ -1,6 +1,7 @@
 [submodule "dfrm_be"]
 	path = dfrm_be
 	url = https://github.com/NPTfisheries/dfrm_be
+	branch = update_docker_build
 [submodule "dfrm_fe"]
 	path = dfrm_fe
 	url = https://github.com/NPTfisheries/dfrm_fe

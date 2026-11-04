@@ -1,0 +1,55 @@
+name: Flatten Submodules to Deployment Branch
+
+on:
+  push:
+    branches:
+      - main # Change this to your primary development branch
+  workflow_dispatch: # Allows you to trigger this manually from the GitHub UI
+
+jobs:
+  flatten-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to push to the target branch
+
+    steps:
+      - name: Checkout repository and submodules recursively
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          # Fetch all history so git knows about the other branch, or 0 for depth
+          fetch-depth: 0
+
+      - name: Flatten submodules into physical directories
+        run: |
+          echo "De-registering submodules..."
+          # Find all submodule paths and remove their tracking files
+          git submodule foreach --recursive '
+            echo "Flattening submodule at $displaypath"
+            rm -rf .git .gitattributes .gitignore
+          '
+          
+          echo "Removing submodule metadata from the parent repository..."
+          rm -f .gitmodules
+          
+          # Force git to clear its internal index/cache of submodule pointers (gitlinks)
+          git rm --cached -r . || true
+          
+          # Re-stage everything as normal physical files and folders
+          git add .
+
+      - name: Commit and Push to the Deployment Branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          TARGET_BRANCH="deploy_innovate" # The branch Portainer or your orchestrator reads from
+          
+          # Create or switch to the deployment branch
+          git checkout -b $TARGET_BRANCH || git checkout $TARGET_BRANCH
+          
+          # Commit the changes (using || true avoids breaking the workflow if there are no new changes)
+          git commit -m "chore: flatten submodules for deployment [skip ci]" || echo "No changes to commit"
+          
+          # Force push to overwrite the deployment branch with the freshly flattened layout
+          git push origin $TARGET_BRANCH --force
