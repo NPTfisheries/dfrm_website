@@ -8,6 +8,9 @@ on:
 
 jobs:
   flatten-and-deploy:
+    concurrency:
+      group: deploy-innovate
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     permissions:
       contents: write # Required to push to the target branch
