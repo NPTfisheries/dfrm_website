@@ -18,24 +18,24 @@ services:
         max-size: "10m" # Limit each log file to 10 MB
         max-file: "3"   # Keep up to 3 log files
     env_file:
-      - stack.env  # Load environment variables from stack.env file
+      - .env  # Load environment variables from .env file
   # NGINX REVERSE PROXY
   nginx_proxy:
     image: nginx:latest
     container_name: nginx_proxy
     ports:
-      - "80:80"     # HTTP
+      - "443:443"     # HTTPS
     depends_on:
       - backend
     volumes:
       - ./static:/usr/share/nginx/html/static
       - ./media:/usr/share/nginx/html/media
       - ./dfrm_fe/dist/dfrm_fe:/usr/share/nginx/html  # Serve Angular build files
-      - ./innovate.nginx:/etc/nginx/nginx.conf  # Map the local Nginx config to the container
+#      - ./innovate.nginx:/etc/nginx/nginx.conf  # Map the local Nginx config to the container
     environment:
       VIRTUAL_HOST: ${VIRTUAL_HOST}
-      VIRTUAL_PORT: 80
-      VIRTUAL_PROTO: http
+      VIRTUAL_PORT: 443
+      VIRTUAL_PROTO: https
       LETSENCRYPT_HOST: ${VIRTUAL_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     logging:
@@ -44,7 +44,7 @@ services:
         max-size: "10m"
         max-file: "3"
     env_file:
-      - stack.env  # Load environment variables from stack.env file
+      - .env  # Load environment variables from .env file
 networks:
   proxy:
     external: true
