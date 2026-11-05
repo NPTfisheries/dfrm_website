@@ -1,0 +1,97 @@
+<div [formGroup]="form">
+    <label [attr.for]="input.key" *ngIf="input?.label && input?.controlType !== 'checkbox'" class="form-label">{{input.label}}</label>
+
+    <div [ngSwitch]="input.controlType">
+
+        <!-- CHECKBOX (currently only built to use is_active 8/22/24)-->
+        <!-- // Shows a check for any truthy value. For unchecked/false: pass undefined. -->
+        <div *ngSwitchCase="'checkbox'" class="form-check">
+            <input type="checkbox" [id]="input.key" [formControlName]="input.key" [value]="input.value"
+                class="form-check-input" [ngClass]="getInputClasses(input)" [required]="input.required">
+            <label class="form-check-label" [for]="input.key">{{input.label}}</label>
+        </div>
+
+        <!-- GEOMETRY -->
+        <app-geometry-widget *ngSwitchCase="'coordinates'" [input]="input" [form]="form"></app-geometry-widget>
+
+        <!-- FILE -->
+        <input *ngSwitchCase="'file'" type="file" [formControlName]="input.key" [value]="input.key" [id]="input.key"
+            class="form-control" [ngClass]="getInputClasses(input)" [required]="input.required">
+
+        <!-- HIDDEN -->
+        <input *ngSwitchCase="'hidden'" type="hidden" style="display:none;" [formControlName]="input.key"
+            [value]="input.key" [id]="input.key" />
+
+        <!-- IMAGE -->
+        <div class="row justify-space-between position-relative" style="max-height:180px" *ngSwitchCase="'image'">
+            <div class="col-sm-8">
+                <select [id]="input.key" *ngSwitchCase="'image'" [formControlName]="input.key" size="6"
+                    (change)="onSelectChange($event)" class="form-control form-select"
+                    [ngClass]="getInputClasses(input)" [required]="input.required" [minlength]="input.minlength"
+                    [maxlength]="input.maxlength">
+                    <option *ngFor="let opt of input.options" [value]="opt.key">{{opt.value}}</option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <div class="mb-3">
+                    <img *ngIf="imagePreview" [src]="imagePreview" alt="Image Preview" class="img-thumbnail"
+                        style="max-height: 160px">
+                </div>
+            </div>
+        </div>
+
+        <!-- NUMBER -->
+        <input *ngSwitchCase="'number'" [formControlName]="input.key" [id]="input.key" [type]="input.type"
+            class="form-control" [ngClass]="getInputClasses(input)" [required]="input.required" [min]="input.min"
+            [max]="input.max" [minlength]="input.minlength" [maxlength]="input.maxlength" [pattern]="input.pattern">
+
+        <!-- PHONE -->
+        <input *ngSwitchCase="'phone'" [formControlName]="input.key" [id]="input.key" [type]="input.type"
+            class="form-control" [ngClass]="getInputClasses(input)" [required]="input.required" [min]="input.min"
+            [max]="input.max" [minlength]="input.minlength" [maxlength]="input.maxlength" [pattern]="input.pattern">
+
+        <!-- TEXT -->
+        <input *ngSwitchCase="'text'" [formControlName]="input.key" [id]="input.key" [type]="input.type"
+            class="form-control" [ngClass]="getInputClasses(input)" [required]="input.required" [min]="input.min"
+            [max]="input.max" [minlength]="input.minlength" [maxlength]="input.maxlength" [pattern]="input.pattern">
+
+        <!-- TEXTAREA -->
+        <textarea *ngSwitchCase="'textarea'" rows="5" [formControlName]="input.key" [id]="input.key"
+            class="form-control" [ngClass]="getInputClasses(input)" [required]="input.required"
+            [minlength]="input.minlength" [maxlength]="input.maxlength"></textarea>
+
+        <!-- RICH TEXT -->
+        <div *ngSwitchCase="'richtext'">
+            <app-rich-text-input [input]="input" [form]="form"></app-rich-text-input>
+        </div>
+
+        <!-- SELECT SINGLE -->
+        <ng-select *ngSwitchCase="'select'" [formControlName]="input.key" [bindLabel]="bind_label" bindValue="id"
+            [items]="items"></ng-select>
+
+        <!-- SELECT MULTIPLE -->
+        <ng-select *ngSwitchCase="'multi-select'" [formControlName]="input.key" [bindLabel]="bind_label" bindValue="id"
+        [items]="items" [multiple]="true" ></ng-select>
+
+        <!-- DATE -->
+        <input *ngSwitchCase="'date'" [type]="'date'" [formControlName]="input.key"
+            class="form-control form-control-date" [ngClass]="getInputClasses(input)" [required]="input.required"
+            [min]="input.min" [max]="input.max" [minlength]="input.minlength" [maxlength]="input.maxlength" />
+
+    </div>
+
+    <div class="errorMessage validationErrorMessage" *ngIf="form.get(input.key)?.hasError('required')">{{input.label}}
+        is required</div>
+    <div class="errorMessage validationErrorMessage" *ngIf="form.get(input.key)?.hasError('min')">{{input.label}} must
+        be {{input.min}} or
+        greater.</div>
+    <div class="errorMessage validationErrorMessage" *ngIf="form.get(input.key)?.hasError('max')">{{input.label}} must
+        be {{input.max}} or
+        less.</div>
+    <div class="errorMessage validationErrorMessage" *ngIf="form.get(input.key)?.hasError('minlength')">{{input.label}}
+        must be at least
+        {{input.minlength}} characters long.</div>
+    <div class="errorMessage validationErrorMessage" *ngIf="form.get(input.key)?.hasError('pattern')">
+        {{input.patternMessage}}</div>
+
+</div>

@@ -1,0 +1,23 @@
+<div class="container" style="padding-top: 75px; padding-bottom: 50px;">
+    <h2 class="text-center">{{ routeType | titlecase }}</h2>
+
+    <app-button *ngIf="['divisions', 'facilities'].includes(routeType) && managerAccess(permissionGroup)"
+        [label]="'Add New'" (click)="add(routeType)" [style]="btnStyle"></app-button>
+    <app-button
+        *ngIf="['instruments', 'locations', 'projects', 'tasks'].includes(routeType) && projectleaderAccess(permissionGroup)"
+        [label]="'Add New'" (click)="add(routeType)" [style]="btnStyle"></app-button>
+    <app-button *ngIf="routeType === 'images' && projectleaderAccess(permissionGroup)" [label]="'Add New'"
+        (click)="uploadImage()" [style]="btnStyle"></app-button>
+    <app-button *ngIf="routeType === 'users' && adminAccess(permissionGroup)" [label]="'Register User'"
+        (click)="registerUser()" [style]="btnStyle"></app-button>
+
+    <br><br><br>
+    <div class="container grid-container">
+        <ag-grid-angular style="width: 100%; height: 100%; font-size:20px" class="ag-theme-quartz-dark"
+            [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowData]="data" [rowSelection]="'multiple'"
+            [suppressCellFocus]="true" (gridReady)="onGridReady($event)" [animateRows]="true">
+        </ag-grid-angular>
+        <p *ngIf="routeType == 'image'"><em>* Hover over image name to see description.</em></p>
+    </div>
+
+</div>

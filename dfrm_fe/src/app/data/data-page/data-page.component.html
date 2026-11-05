@@ -1,0 +1,33 @@
+<div class="container my-5">
+    <h1 class="dfrm-page-title text-center">CDMS Data Access</h1>
+    <app-button [label]="'test'" (click)="test()" ></app-button>
+    <div class="row align-items-center">
+        <div class="col-9 offset-1">
+            <ng-select [items]="tasks" bindLabel="name" bindValue="id" placeholder="Select Dataset"
+                (change)="handleChange(selectedTaskType)" [(ngModel)]="selectedTaskType"></ng-select>
+        </div>
+        <div class="col-2">
+            <app-button [label]="'Retrieve Data'" (click)="retrieveData()" [loading]="isLoading" [disabled]="invalidForm"></app-button>
+        </div>
+    </div>
+    <!-- <app-data-filters (dataFilters)="getDataFilters($event)" [selectedTaskType]="selectedTaskType"></app-data-filters> -->
+
+    <br>
+
+    <div class="container my-5" style="height: 600px;">
+        <ag-grid-angular style="width: 100%; height: 100%; font-size:20px" class="ag-theme-quartz-dark"
+            [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowData]="data" [selection]="selection" [selectionColumnDef]="selectionColumnDef" 
+            [suppressCellFocus]="true" (gridReady)="onGridReady($event)" [animateRows]="true">
+        </ag-grid-angular>
+    </div>
+    <br>
+    <div class="row align-items-center">
+        <div class="col-5 offset-3">
+            <p><em>Filters applied in the grid will be reflected in the exported CSV.</em></p>
+        </div>
+        <div class="col-3 offset-1">
+            <app-button [label]="'Export CSV'" (click)="exportData()" [style]="btnStyle"
+                [disabled]="isLoading || !data"></app-button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<nav class="nav navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+  <div class="container">
+    <img class="navbar-brand" src='./assets/images/DFRM.png' height="80px" />
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <button class="nav-link me-auto" aria-current="page" routerLink="home" routerLinkActive="active">Home</button>
+        <li class="nav-item dropdown" ngbDropdown>
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle id="navbarAdmin" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Administration
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarAdmin">
+            <button class="dropdown-item" ngbDropdownItem aria-current="page" routerLink="divisions"
+              routerLinkActive="active">Department</button>
+            <button class="dropdown-item" ngbDropdownItem aria-current="page" routerLink="projects"
+              routerLinkActive="active">Projects</button>
+            <button class="dropdown-item" ngbDropdownItem aria-current="page" routerLink="facilities"
+              routerLinkActive="active">Facilities</button>
+          </ul>
+        </li>
+        <button class="nav-link me-auto" aria-current="page" routerLink="documents"
+          routerLinkActive="active">Documents</button>
+        <button class="nav-link me-auto" aria-current="page" routerLink="invasives"
+          routerLinkActive="active">Invasives</button>
+        <!-- <li class="nav-item dropdown" ngbDropdown>
+          <a *ngIf="isLoggedIn && admin" class="nav-link dropdown-toggle" ngbDropdownToggle id="navbarData" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Data
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarData">
+            <button *ngIf="isLoggedIn" class="dropdown-item" aria-current="page" routerLink="data-entry"
+              routerLinkActive="active">Entry</button>
+            <button *ngIf="isLoggedIn" class="dropdown-item" aria-current="page" routerLink="activities"
+              routerLinkActive="active">Activities</button>
+          </ul>
+        </li> -->
+      </ul>
+      <ul class="navbar-nav">
+        <button *ngIf="!isLoggedIn; else profileNav" class="nav-link me-auto" (click)="openLoginModal()">Login</button>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<ng-template #profileNav>
+  <li ngbDropdown class="nav-item" role="presentation">
+    <button type="button" class="nav-link" ngbDropdownToggle>{{ username }}</button>
+    <div ngbDropdownMenu>
+      <button ngbDropdownItem routerLink="profile" routerLinkActive="active">Profile</button>
+      <button ngbDropdownItem (click)="updatePassword()">Update Password</button>
+
+      <div class="dropdown-divider"></div>
+      <button ngbDropdownItem routerLink="department-list" routerLinkActive="active">Department List</button>
+      <button ngbDropdownItem routerLink="division-list" routerLinkActive="active">Division List</button>
+      <button ngbDropdownItem routerLink="facility-list" routerLinkActive="active">Facility List</button>
+      <button ngbDropdownItem routerLink="project-list" routerLinkActive="active">Project List</button>
+      <button ngbDropdownItem routerLink="task-list" routerLinkActive="active">Task List</button>
+      <button ngbDropdownItem routerLink="user-list" routerLinkActive="active">User List</button>
+      <button ngbDropdownItem routerLink="image-list" routerLinkActive="active">Images</button>
+      <button ngbDropdownItem *ngIf="admin" routerLink="location-list" routerLinkActive="active">Locations</button>
+      <!-- <button ngbDropdownItem *ngIf="admin" routerLink="instrument-list" routerLinkActive="active">Instruments</button>  -->
+
+      <div class="dropdown-divider"></div>
+      <button ngbDropdownItem (click)="authService.logout()">Logout</button>
+    </div>
+  </li>
+</ng-template>

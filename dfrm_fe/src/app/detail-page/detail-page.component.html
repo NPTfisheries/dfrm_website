@@ -1,0 +1,37 @@
+<div class="banner-container">
+    <img class="banner-image" [src]="bannerImage" [alt]="data?.description" />
+</div>
+<br>
+<div class="container my-5">
+    <h1 class="text-center">{{ data?.name }}</h1>
+</div>
+<h2 class="divider gradient-hr"></h2>
+<div class="container my-5">
+    <!-- <pre><p>{{ data?.description }}</p></pre> -->
+    <app-html-sanitizer [html]="data?.description"></app-html-sanitizer>
+</div>
+<h2 *ngIf="routeType === 'projects'" class="bar-title">Project Leaders</h2>
+<div class="employee-bar">
+    <app-employee-card *ngIf="data?.manager && data?.manager.email !== ''" [data]="data?.manager"></app-employee-card>
+    <app-employee-card *ngIf="data?.deputy && data?.deputy.email !== ''" [data]="data?.deputy"></app-employee-card>
+    <app-employee-card *ngIf="data?.deputy && data?.assistant.email !== ''"
+        [data]="data?.assistant"></app-employee-card>
+    <div *ngFor="let pl of data?.project_leader">
+        <app-employee-card *ngIf="pl" [data]="pl"></app-employee-card>
+    </div>
+</div>
+
+<h2 *ngIf="routeType === 'projects'" class="divider gradient-hr"></h2>
+
+<div *ngIf="routeType === 'projects'">
+    <div *ngIf="loadingTasks" class="d-flex justify-content-center align-items-center">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+    <div *ngIf="!loadingTasks && tasks.length !== 0">
+        <app-detail-task [tasks]="tasks" ></app-detail-task>
+    </div>
+    <div class="container justify-content-center" *ngIf="!loadingTasks && tasks.length === 0">
+        <p class="text-center">There are currently no loaded tasks for this project.</p>
+    </div>
+        
+</div>

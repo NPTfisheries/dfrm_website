@@ -1,0 +1,52 @@
+<div class="container px-4 py-4">
+    <br />
+    <h2 style="text-align: center;">Upload an Image</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <app-file-input [form]="form" controlName="image" [maxFileSizeMB]="30" [customErrors]="{
+            required: 'Please select an image.',
+            fileSize: 'The selected image is too large. Maximum size allowed is 30 MB.'
+          }"></app-file-input>
+
+        <app-form-input [form]="form" label="Image Name" controlName="name"
+            [customErrors]="{ required: 'Image name is required.' }"></app-form-input>
+        <app-form-input [form]="form" label="Description" controlName="description" type="textarea"
+            [customErrors]="{ required: 'Description is required.' }"></app-form-input>
+        <app-form-input [form]="form" label="Photographer" controlName="photographer"
+            [customErrors]="{ required: 'Photographer is required.' }"></app-form-input>
+        <app-form-input [form]="form" label="Source" controlName="source"
+            [customErrors]="{ required: 'Source is required.' }"></app-form-input>
+        <app-form-input [form]="form" label="Photo Date" controlName="photo_date" type="date"
+            [customErrors]="{ required: 'Photo date is required.' }"></app-form-input>
+
+        <app-button [label]="'Upload Image'" [loading]="isSubmitting"
+            [disabled]="form.invalid || isSubmitting"></app-button>
+
+    </form>
+    <br />
+    <div class="container rounded" style="background-color: yellow;">
+        <p class="text-center"><em><strong>By uploading images here, you are confirming the following:</strong></em></p>
+        <ol>
+            <li>
+                <p><strong>No Copyright Infringement:</strong> You shall not upload any images that infringe on the
+                    copyrights, trademarks, or
+                    intellectual property rights of any third party.</p>
+            </li>
+            <li>
+                <p><strong>Ownership and Responsibility:</strong> You confirm that you are the owner of the uploaded
+                    images
+                    or have obtained all
+                    necessary permissions and rights to use, upload, and share these images on this website. You are
+                    solely
+                    responsible for any copyright infringement or legal issues that may arise from the use of these
+                    images.
+                </p>
+            </li>
+            <li>
+                <p>Any user found to be uploading copyrighted images without proper authorization may be subject to
+                    legal action and account suspension.
+                </p>
+            </li>
+        </ol>
+    </div>
+</div>
