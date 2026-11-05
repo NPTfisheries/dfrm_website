@@ -18,7 +18,7 @@ services:
         max-size: "10m" # Limit each log file to 10 MB
         max-file: "3"   # Keep up to 3 log files
     env_file:
-      - .env  # Load environment variables from .env file
+      - stack.env  # Load environment variables from .env file
   # NGINX REVERSE PROXY
   nginx_proxy:
     image: nginx:latest
@@ -44,7 +44,7 @@ services:
         max-size: "10m"
         max-file: "3"
     env_file:
-      - .env  # Load environment variables from .env file
+      - stack.env  # Load environment variables from .env file
 networks:
   proxy:
     external: true
