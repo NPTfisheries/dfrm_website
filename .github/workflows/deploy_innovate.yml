@@ -23,11 +23,14 @@ jobs:
       - name: Flatten submodules into physical directories
         run: |
           echo "De-registering submodules..."
-          # Find all submodule paths and remove their tracking files
-          git submodule foreach --recursive '
-            echo "Flattening submodule at $displaypath"
-            rm -rf .git .gitattributes .gitignore
-          '
+          # Finish recursive traversal before removing any submodule Git metadata.
+          submodule_paths=$(mktemp)
+          trap 'rm -f "$submodule_paths"' EXIT
+          git submodule foreach --quiet --recursive 'printf "%s\0" "$displaypath"' > "$submodule_paths"
+          while IFS= read -r -d '' submodule_path; do
+            echo "Flattening submodule at $submodule_path"
+            rm -rf -- "$submodule_path/.git" "$submodule_path/.gitattributes" "$submodule_path/.gitignore" "$submodule_path/.gitmodules"
+          done < "$submodule_paths"
           
           echo "Removing submodule metadata from the parent repository..."
           rm -f .gitmodules
