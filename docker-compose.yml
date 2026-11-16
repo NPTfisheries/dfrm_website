@@ -33,6 +33,8 @@ services:
         - ./dfrm_be:/backend # Bind mount for hot reload // should match Dockerfile WORKDIR
       depends_on:
         - db
+      env_file:
+        - .env  # Load environment variables from .env file
     
     # ANGULAR
 #    frontend:

@@ -1,0 +1,17 @@
+<div>
+    <div class="modal-header">
+        <h1 class="modal-title">{{ addOrEdit | titlecase }} {{ routeType | titlecase }}</h1>
+    </div>
+    <alert id="alert-modal"></alert>
+    <div class="modal-body">
+        <app-dynamic-form 
+        [inputs]="inputs$ | async" 
+        [identifier]="identifier" 
+        [routeType]="routeType" 
+        [addOrEdit]="addOrEdit"
+        (formSubmitted)="handleFormSubmitted()"
+        (formValidityChanged)="handleFormValidityChanged($event)">
+            </app-dynamic-form>
+        <app-button [label]="'Submit Form'" (click)="submitDynamicForm()" [disabled]="!formValid"></app-button>
+    </div>
+</div>

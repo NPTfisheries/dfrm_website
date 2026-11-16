@@ -1,0 +1,9 @@
+<div class="editor" [formGroup]="form">
+    <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+    </ngx-editor-menu>
+    <ngx-editor [editor]="editor" 
+                [formControlName]="input.key"
+                [spellcheck]="true"
+                placeholder=''>
+    </ngx-editor>
+</div>

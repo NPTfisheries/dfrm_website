@@ -1,0 +1,18 @@
+.profile-img-container {
+    height: 400px;
+    width: 400px;
+    /* background-color: blue; */
+    border-radius: 50%;
+    border: 2px solid black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-img {
+    min-height: 400px;
+    min-width: 400px;
+    height: auto;
+    width: auto;
+    object-fit: cover;
+}

@@ -1,0 +1,16 @@
+<div class="container" style="padding-top: 75px; padding-bottom: 50px;">
+    <h2 class="text-center">{{ routeType | titlecase }}</h2>
+
+    <button *ngIf="professionalAccess(permissionGroup)" (click)="uploadDocument()"
+        class="dfrm-button btn-right">Upload Document</button>
+
+    <br><br><br>
+    <div class="container grid-container">
+        <ag-grid-angular style="width: 100%; height: 100%;" class="ag-theme-quartz-dark"
+            [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowData]="data"
+            (gridReady)="onGridReady($event)" [animateRows]="true">
+        </ag-grid-angular>
+        <p><small><em>*To download a document, click Info.</em></small></p>
+    </div>
+
+</div>

@@ -1,0 +1,72 @@
+<div>
+    <div class="modal-header">
+        <h1 class="modal-title text-center">{{this.document?.title}}</h1>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="fw-bold">Primary Author:</h4>
+            </div>
+            <div class="col-md-9">
+                <h4>{{this.document?.primary_author}}</h4>
+            </div>
+        </div>
+
+        <div *ngIf="this.document.employee_authors && this.document.employee_authors.length > 0" class="row">
+            <div class="col-md-3">
+                <h4 class="fw-bold">Employee Authors: </h4>
+            </div>
+            <div class="col-md-9">
+                <h4>{{ this.employee_authors }}</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="fw-bold">Document Type: </h4>
+            </div>
+            <div class="col-md-9">
+                <h4>{{this.document?.document_type?.name}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="fw-bold">Publish Date:</h4>
+            </div>
+            <div class="col-md-9">
+                <h4>{{this.document?.publish_date}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="fw-bold">Description:</h4>
+            </div>
+            <div class="col-md-9">
+                <h4>{{this.document?.description}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="fw-bold">Citation:</h4>
+            </div>
+            <div class="col-md-9">
+                <h4>{{this.document?.citation}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="fw-bold">Keywords:</h4>
+            </div>
+            <div class="col-md-9">
+                <h4>{{this.document?.keywords}}</h4>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+                <app-button [label]="'Download'" (click)="download()"></app-button>
+            </div>
+        </div>
+    </div>
+</div>
